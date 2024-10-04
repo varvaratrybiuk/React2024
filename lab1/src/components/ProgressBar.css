@@ -1,0 +1,26 @@
+.progress-container {
+    width: 50%;
+    height: 30px;
+    background-color: #000000;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #cf1591;
+    border-radius: 10px;
+    position: relative;
+    transition: width 0.1s linear;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+}
