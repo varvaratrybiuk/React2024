@@ -1,0 +1,42 @@
+.option-group {
+  font-size: 12px;
+}
+.description {
+  padding: 20px;
+  font-weight: bold;
+}
+.checkbox-list {
+  border: 1px solid gray;
+  border-radius: 9px;
+  padding: 5px;
+  width: 200px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.option-items{
+  padding: 5px;
+}
+.nested-options {
+  margin-left: 20px;
+  border-left: 2px solid #ccc;
+  padding-left: 10px;
+}
+
+.checkbox-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.checkbox-list::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.checkbox-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+}
+
+.checkbox-list::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
