@@ -1,5 +1,6 @@
 .option-group {
   font-size: 12px;
+  width: auto;
 }
 .description {
   padding: 20px;

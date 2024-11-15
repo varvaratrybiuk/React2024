@@ -1,15 +1,29 @@
-export default function OptionItem(props) {
-  const { optionKey, value, checked, onChange } = props;
+import { Controller, useFormContext } from "react-hook-form";
+import { Checkbox } from "antd";
+
+const OptionItem = (props) => {
+  const { name, value, onChange, checked = false } = props;
+  const { control } = useFormContext();
 
   return (
-    <>
-      <input
-        type="checkbox"
-        id={optionKey}
-        checked={checked}
-        onChange={onChange}
-      />
-      <label htmlFor={optionKey}>{value}</label>
-    </>
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={checked}
+      render={({ field }) => (
+        <Checkbox
+          {...field}
+          checked={field.value}
+          onChange={(e) => {
+            field.onChange(e);
+            onChange(e);
+          }}
+        >
+          {value}
+        </Checkbox>
+      )}
+    />
   );
-}
+};
+
+export default OptionItem;

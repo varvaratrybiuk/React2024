@@ -1,16 +1,29 @@
 import style from "./style.module.css";
 import { useFormContext } from "react-hook-form";
-import { useReducer } from "react";
-import { OptionItemController } from "./optionItemController.jsx";
+import { useState } from "react";
+import OptionItem from "./optionItem.jsx";
 
 export default function OptionGroup(props) {
   const { description, options, fieldname } = props;
   const { control, setValue, getValues } = useFormContext();
-  const [expandedOptions, dispatch] = useReducer(reducer, {});
+  const [expandedOptions, setExpandedOptions] = useState({});
+  //Винести
+  const checkAllFalse = (obj) => {
+    return Object.values(obj).every((value) => {
+      if (typeof value === "object" && value !== null) {
+        return checkAllFalse(value);
+      }
+      return value === false;
+    });
+  };
   const updateValues = (newValues) => {
     Object.entries(newValues).forEach(([key, value]) => {
       setValue(key, value);
     });
+    const allValues = getValues(fieldname) || {};
+    if (checkAllFalse(allValues)) {
+      setValue(`${fieldname}.any`, true);
+    }
   };
   const addCheckedValues = (optionKey, isChecked) => {
     const allValues = getValues(fieldname) || {};
@@ -20,13 +33,16 @@ export default function OptionGroup(props) {
       Object.keys(allValues).forEach((key) => {
         if (key !== "any") {
           newValues[`${fieldname}.${key}`] = false;
-          dispatch({ key: `${fieldname}.${key}`, type: "hide" });
         }
       });
+      setExpandedOptions({});
       newValues[`${fieldname}.any`] = true;
     } else {
       newValues[optionKey] = isChecked;
-      dispatch({ key: optionKey, type: isChecked ? "show" : "hide" });
+      setExpandedOptions((prev) => ({
+        ...prev,
+        [optionKey]: isChecked,
+      }));
       newValues[`${fieldname}.any`] = false;
     }
 
@@ -38,13 +54,14 @@ export default function OptionGroup(props) {
       <label className={style["description"]}>{description}</label>
       <div className={style["checkbox-list"]}>
         <div key={`${fieldname}.any`}>
-          {OptionItemController(
-            `${fieldname}.any`,
-            "Будь-який",
-            control,
-            (e) => addCheckedValues(`${fieldname}.any`, e.target.checked),
-            true
-          )}
+          <OptionItem
+            name={`${fieldname}.any`}
+            value="Будь-який"
+            onChange={(e) =>
+              addCheckedValues(`${fieldname}.any`, e.target.checked)
+            }
+            checked={true}
+          />
         </div>
 
         {options.map((option) => {
@@ -55,30 +72,30 @@ export default function OptionGroup(props) {
 
           return (
             <div key={currentKey}>
-              {OptionItemController(
-                currentKey,
-                value,
-                control,
-                (e) => addCheckedValues(currentKey, e.target.checked),
-                false
-              )}
+              <OptionItem
+                name={`${currentKey}`}
+                value={value}
+                onChange={(e) =>
+                  addCheckedValues(`${currentKey}`, e.target.checked)
+                }
+              />
               {expandedOptions[currentKey] && hasNestedOptions(nestedData) && (
                 <div className={style["nested-options"]}>
                   {nestedData[1].map((item) => {
                     const [subKey, subValue] = Object.entries(item)[0];
                     return (
                       <div key={`${currentKey}.${subKey}`}>
-                        {OptionItemController(
-                          `${currentKey}.${subKey}`,
-                          subValue,
-                          control,
-                          (e) =>
+                        <OptionItem
+                          name={`${currentKey}.${subKey}`}
+                          value={subValue}
+                          onChange={(e) =>
                             addCheckedValues(
                               `${currentKey}.${subKey}`,
                               e.target.checked
-                            ),
-                          true
-                        )}
+                            )
+                          }
+                          checked={true}
+                        />
                       </div>
                     );
                   })}
@@ -93,14 +110,3 @@ export default function OptionGroup(props) {
 }
 const hasNestedOptions = (nestedData) =>
   nestedData && Array.isArray(nestedData) && nestedData.length > 1;
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "show":
-      return { ...state, [action.key]: true };
-    case "hide":
-      return { ...state, [action.key]: false };
-    default:
-      return state;
-  }
-}

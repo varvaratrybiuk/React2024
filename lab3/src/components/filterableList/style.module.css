@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 9px;
+}
+
+.searchInput {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  width: 150px;
+  font-size: 12px;
+}
+
+.searchInput:focus {
+  border-color: #888;
+  outline: none;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.label{
+  margin: 10px;
+}

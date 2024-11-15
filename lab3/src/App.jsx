@@ -1,87 +1,140 @@
-import { useState, useEffect } from "react";
 import OptionGroup from "./components/optiongroup/component";
+import ComboBox from "./components/combobox/component";
 import { useForm, FormProvider, useWatch } from "react-hook-form";
-import { getCities, getHotels } from "./helpers/locationDataParser";
+import {
+  getDestinationCities,
+  getDepartureCities,
+  getDestinationCountries,
+  getHotels,
+} from "./helpers/locationDataParser";
+import FilterableList from "./components/filterableList/components";
+import "./App.css";
+import { stars, food, kids, nights, adults, сurrency } from "./data/constants";
+import DataPicker from "./components/datapicker/componet";
+import ComboBoxWithInputs from "./components/сomboBoxWithInputs/component";
 
-const stars = [
-  { "1*": "1*" },
-  { "2*": "2*" },
-  { "3*": "3*" },
-  { "4*": "4*" },
-  { "5*": "5*" },
-];
-const food = [
-  { "all inclusive": "все включено" },
-  { breakfast: "сніданок" },
-  { fullBoard: "сніданок, обід, вечеря" },
-  { "breakfast and dinner": "сніданок та вечеря" },
-  { "without food": "без харчування" },
-];
 function App() {
+  const countries = getDestinationCountries();
+  const defaultSelectedOption =
+    countries && countries.length > 0 ? `${Object.keys(countries[0])[0]}` : "";
+
   const {
     formState: { errors },
     handleSubmit,
     control,
+    register,
     getValues,
     setValue,
   } = useForm({
     defaultValues: {
-      cities: [],
+      destinationCities: [],
       stars: [],
+      destinationCountry: defaultSelectedOption,
     },
   });
-  const cities = getCities();
-
   const onSubmit = (formData) => console.log(formData);
-  const CitiesAndStars = useWatch({
+  const watchedValues = useWatch({
     control,
-    name: ["cities", "stars"],
+    name: ["destinationCities", "stars", "destinationCountry"],
   });
-  const valueFiltering = (object) => {
-    return Object.entries(object).flatMap(([key, isSelected]) => {
-      if (typeof isSelected === "boolean" && isSelected) {
-        return [[key, isSelected]];
-      } else if (typeof isSelected === "object") {
-        return Object.entries(isSelected)
-          .filter(([subCity, isSelected]) => isSelected)
-          .map(([subCity]) => [`${key}.${subCity}`, true]);
+
+  const departureCities = getDepartureCities(watchedValues[2]);
+  const cities = getDestinationCities(watchedValues[2]);
+  let nightsOptions = nights();
+  let adultsOptions = adults();
+  //Винести
+  const valueFiltering = (object, parentKey = "") => {
+    return Object.entries(object).flatMap(([key, value]) => {
+      const fullKey = parentKey ? `${parentKey}.${key}` : key;
+      if (typeof value === "boolean" && value) {
+        return [[fullKey, value]];
+      } else if (typeof value === "object" && value !== null) {
+        return valueFiltering(value, fullKey);
       }
       return [];
     });
   };
   //console.log(CitiesAndStars[0]);
 
-  const selectedCities = valueFiltering(CitiesAndStars[0]);
+  const selectedCities = valueFiltering(watchedValues[0]);
   //console.log(selectedCities);
-  const selectedStars = valueFiltering(CitiesAndStars[1]);
-  const hotels = getHotels(selectedCities, selectedStars);
+  const selectedStars = valueFiltering(watchedValues[1]);
+  const hotels = getHotels(selectedCities, selectedStars, watchedValues[2]);
   //console.log("Обрані міста:", selectedCities);
-  console.log("Обрані готелі:", hotels);
+  // console.log("Обрані готелі:", hotels);
   return (
     <>
-      <FormProvider {...{ control, setValue, getValues }}>
+      <FormProvider {...{ register, control, setValue, getValues }}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <OptionGroup
-            description="Місто:"
-            options={cities}
-            fieldname="cities"
-          ></OptionGroup>
-          <OptionGroup
-            description="Зірки:"
-            options={stars}
-            fieldname="stars"
-          ></OptionGroup>
-          <OptionGroup
-            description="Готель:"
-            fieldname="hotels"
-            options={hotels}
-          ></OptionGroup>
-          <OptionGroup
-            description="Харчування:"
-            options={food}
-            fieldname="food"
-          ></OptionGroup>
-          <button type="submit">Submit</button>
+          <div className="formWrapper">
+            <div>
+              <ComboBox
+                description="Країна прибуття:"
+                options={countries}
+                fieldname="destinationCountry"
+              ></ComboBox>
+              <ComboBox
+                description="Місто відправлення:"
+                options={departureCities}
+                fieldname="departureCities"
+              ></ComboBox>
+            </div>
+            <div>
+              <DataPicker fieldname="departureFrom" description="Виліт від:" />
+              <DataPicker fieldname="departureTo" description="Виліт до:" />
+              <ComboBox
+                description="Ночей від:"
+                options={nightsOptions}
+                fieldname="nightsFrom"
+              />
+              <ComboBox
+                description="Ночей до:"
+                options={nightsOptions}
+                fieldname="nightsTo"
+              />
+              <ComboBox
+                description="Дорослих:"
+                options={adultsOptions}
+                fieldname="adults"
+              ></ComboBox>
+              <div>
+                <ComboBoxWithInputs
+                  description="Дітей:"
+                  options={kids}
+                  fieldname="kids"
+                  inputPlaceholder="Вік"
+                />
+              </div>
+              <ComboBox
+                description="Валюта:"
+                options={сurrency}
+                fieldname="currency"
+              ></ComboBox>
+            </div>
+            <div>
+              <OptionGroup
+                description="Місто:"
+                options={cities}
+                fieldname="destinationCities"
+              />
+              <OptionGroup
+                description="Зірки:"
+                options={stars}
+                fieldname="stars"
+              />
+              <FilterableList
+                description="Готель:"
+                fieldname="hotels"
+                options={hotels}
+              />
+              <OptionGroup
+                description="Харчування:"
+                options={food}
+                fieldname="food"
+              />
+            </div>
+          </div>
+          <button type="submit">Пошук туру</button>
         </form>
       </FormProvider>
     </>
