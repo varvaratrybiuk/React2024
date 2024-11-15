@@ -15,6 +15,7 @@ export default function DataPicker(props) {
       render={({ field }) => (
         <DatePicker 
           {...field} 
+          placeholder="Виберіть дату"
         />
       )}
     />

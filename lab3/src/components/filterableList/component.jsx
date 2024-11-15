@@ -1,7 +1,7 @@
 import React from "react";
 import OptionGroup from "../optiongroup/component";
 import { useState } from "react";
-import { useWatch, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import style from "./style.module.css";
 
 export default function FilterableList(props) {
