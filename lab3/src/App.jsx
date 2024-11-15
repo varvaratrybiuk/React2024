@@ -31,6 +31,7 @@ function App() {
       stars: [],
       destinationCountry: defaultSelectedOption,
     },
+    shouldUnregister: true,
   });
   const onSubmit = (formData) => console.log(formData);
   const watchedValues = useWatch({
@@ -44,11 +45,17 @@ function App() {
   let adultsOptions = adults();
   //Винести
   const valueFiltering = (object, parentKey = "") => {
+    // Перевірка, чи є об'єкт валідним (не null і не undefined)
+    if (object === null || object === undefined) {
+      return [];
+    }
+  
     return Object.entries(object).flatMap(([key, value]) => {
       const fullKey = parentKey ? `${parentKey}.${key}` : key;
       if (typeof value === "boolean" && value) {
         return [[fullKey, value]];
-      } else if (typeof value === "object" && value !== null) {
+      }
+      else if (typeof value === "object") {
         return valueFiltering(value, fullKey);
       }
       return [];
