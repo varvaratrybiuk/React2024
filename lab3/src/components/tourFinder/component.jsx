@@ -1,9 +1,15 @@
 import { useForm, FormProvider, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { tourFinderSchema } from "../../schemas/tourFinderSchemas";
+
 import OptionGroup from "../optiongroup/component";
 import ComboBox from "../comboBox/component";
 import DataPicker from "../dataPicker/component";
 import FilterableList from "../filterableList/component";
 import ComboBoxWithInputs from "../сomboBoxWithInputs/component";
+import NumberSelector from "../numberSelector/component";
+
 import {
   getDestinationCities,
   getDepartureCities,
@@ -20,12 +26,9 @@ import {
 } from "../../data/constants";
 import { valueFiltering } from "../../helpers/filterFunctions";
 import style from "./style.module.css";
+import OptionItem from "../optionItem/component";
 
 export default function TourFinder() {
-  const countries = getDestinationCountries();
-  const defaultSelectedOption =
-    countries && countries.length > 0 ? `${Object.keys(countries[0])[0]}` : "";
-
   const {
     formState: { errors },
     handleSubmit,
@@ -34,77 +37,165 @@ export default function TourFinder() {
     getValues,
     setValue,
   } = useForm({
-    defaultValues: {
-      destinationCities: [],
-      stars: [],
-      destinationCountry: defaultSelectedOption,
-    },
+    resolver: yupResolver(tourFinderSchema),
+    defaultValues: tourFinderSchema.cast(),
     shouldUnregister: true,
   });
-  const onSubmit = (formData) => console.log(formData);
+
+  const onSubmit = (formData) => {
+    console.log(formData);
+  };
   const watchedValues = useWatch({
     control,
     name: ["destinationCities", "stars", "destinationCountry"],
   });
-
+  const countries = getDestinationCountries();
   const departureCities = getDepartureCities(watchedValues[2]);
   const cities = getDestinationCities(watchedValues[2]);
   let nightsOptions = nights();
   let adultsOptions = adults();
-  //console.log(CitiesAndStars[0]);
   const selectedCities = valueFiltering(watchedValues[0]);
-  //console.log(selectedCities);
   const selectedStars = valueFiltering(watchedValues[1]);
   const hotels = getHotels(selectedCities, selectedStars, watchedValues[2]);
   //console.log("Обрані міста:", selectedCities);
   // console.log("Обрані готелі:", hotels);
+
   return (
     <>
-      <FormProvider {...{ register, control, setValue, getValues }}>
+      <FormProvider {...{ register, control, setValue, getValues, errors }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={style["form-container"]}>
             <div className={style["form-section"]}>
-              <ComboBox
-                description="Країна прибуття:"
-                options={countries}
-                fieldname="destinationCountry"
-              />
-              <ComboBox
-                description="Місто відправлення:"
-                options={departureCities}
-                fieldname="departureCities"
-              />
+              <div>
+                <ComboBox
+                  description="Країна прибуття:"
+                  options={countries}
+                  fieldname="destinationCountry"
+                />
+                {errors.destinationCountry && (
+                  <p className={style["error-message"]}>
+                    {errors.destinationCountry.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <ComboBox
+                  description="Місто відправлення:"
+                  options={departureCities}
+                  fieldname="departureCity"
+                />
+                {errors.departureCity && (
+                  <p className={style["error-message"]}>
+                    {errors.departureCity.message}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className={style["form-section"]}>
-              <DataPicker fieldname="departureFrom" description="Виліт від:" />
-              <DataPicker fieldname="departureTo" description="Виліт до:" />
-              <ComboBox
-                description="Ночей від:"
-                options={nightsOptions}
-                fieldname="nightsFrom"
-              />
-              <ComboBox
-                description="Ночей до:"
-                options={nightsOptions}
-                fieldname="nightsTo"
-              />
-              <ComboBox
-                description="Дорослих:"
-                options={adultsOptions}
-                fieldname="adults"
-              />
-              <ComboBoxWithInputs
-                description="Дітей:"
-                options={kids}
-                fieldname="kids"
-                inputPlaceholder="Вік"
-              />
-              <ComboBox
-                description="Валюта:"
-                options={сurrency}
-                fieldname="currency"
-              />
+              <div>
+                <DataPicker
+                  fieldname="departureFrom"
+                  description="Виліт від:"
+                />
+                {errors.departureFrom && (
+                  <p className={style["error-message"]}>
+                    {errors.departureFrom.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <DataPicker fieldname="departureTo" description="Виліт до:" />
+                {errors.departureTo && (
+                  <p className={style["error-message"]}>
+                    {errors.departureTo.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <ComboBox
+                  description="Ночей від:"
+                  options={nightsOptions}
+                  fieldname="nightsFrom"
+                />
+                {errors.nightsFrom && (
+                  <p className={style["error-message"]}>
+                    {errors.nightsFrom.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <ComboBox
+                  description="Ночей до:"
+                  options={nightsOptions}
+                  fieldname="nightsTo"
+                />
+                {errors.nightsTo && (
+                  <p className={style["error-message"]}>
+                    {errors.nightsTo.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <ComboBox
+                  description="Дорослих:"
+                  options={adultsOptions}
+                  fieldname="adults"
+                />
+                {errors.adults && (
+                  <p className={style["error-message"]}>
+                    {errors.adults.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <ComboBoxWithInputs
+                  description="Дітей:"
+                  options={kids}
+                  fieldname="kids"
+                  inputPlaceholder="Вік"
+                />
+              </div>
+              <div>
+                <ComboBox
+                  description="Валюта:"
+                  options={сurrency}
+                  fieldname="currency"
+                />
+                {errors.currency && (
+                  <p className={style["error-message"]}>
+                    {errors.currency.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <div className={style["form-section"]}>
+                  <div>
+                    <NumberSelector
+                      fieldname="priceFrom"
+                      description="Ціна від:"
+                    />
+                    {errors.priceFrom && (
+                      <p className={style["error-message"]}>
+                        {errors.priceFrom.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <NumberSelector
+                      fieldname="priceTo"
+                      description="Ціна до:"
+                    />
+                    {errors.priceTo && (
+                      <p className={style["error-message"]}>
+                        {errors.priceTo.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={style["form-section"]}>
               <OptionGroup
@@ -127,6 +218,14 @@ export default function TourFinder() {
                 options={food}
                 fieldname="food"
               />
+            </div>
+            <div className={style["form-section"]}>
+              <OptionItem
+                name="stopSales"
+                value="немає зупинки продажу"
+                checked={true}
+              />
+              <OptionItem name="kidsInOwnBed" value="діти на окремому ліжку" />
             </div>
           </div>
           <button type="submit">Пошук туру</button>

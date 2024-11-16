@@ -4,7 +4,7 @@ import style from "./style.module.css";
 
 export default function ComboBoxWithInputs(props) {
   const { description, options, fieldname, inputPlaceholder } = props;
-  const { control, register, setValue } = useFormContext();
+  const { control, register, setValue, errors } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: `${fieldname}.inputs`,
@@ -12,7 +12,7 @@ export default function ComboBoxWithInputs(props) {
 
   const handleComboBoxChange = (quantity) => {
     const numValue = parseInt(quantity, 10);
-    setValue(fieldname, quantity);
+    setValue(`${fieldname}.comboBox`, quantity);
     remove();
     for (let i = 0; i < numValue; i++) {
       append({ value: "" });
@@ -24,18 +24,27 @@ export default function ComboBoxWithInputs(props) {
       <ComboBox
         description={description}
         options={options}
-        fieldname={fieldname}
+        fieldname={`${fieldname}.comboBox`}
         onChange={(value) => {
           handleComboBoxChange(value);
         }}
       />
       {fields.map((field, index) => (
-        <input
-          key={field.id}
-          {...register(`${fieldname}.inputs.${index}.value`)}
-          placeholder={inputPlaceholder}
-          className={style["custom-input"]}
-        />
+        <div key={field.id}className= {style["custom-input-container"]}>
+          <input
+            {...register(`${fieldname}.inputs.${index}.value`)}
+            placeholder={inputPlaceholder}
+            className={style["custom-input"]}
+          />
+          {errors[fieldname] &&
+            errors[fieldname].inputs &&
+            errors[fieldname].inputs[index] &&
+            errors[fieldname].inputs[index].value && (
+              <p className={style["error-message"]}>
+                {errors[fieldname].inputs[index].value.message}
+              </p>
+            )}
+        </div>
       ))}
     </div>
   );

@@ -1,31 +1,38 @@
 .form-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: auto;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    width: max-content;
-    background-color: aliceblue;
-  }
-  
-  .form-section {
-    display: grid;
-    grid-template-columns: repeat(2, 0.5fr);
-    gap: 20px;
-    grid-column: span 3;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px;
-  }
-  
-  button {
-    margin-top: 20px;
-    width: max-content;
-    background-color: rgb(103, 168, 221);
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: max-content;
+  background-color: aliceblue;
+  align-content: center;
+}
+
+.form-section {
+  display: grid;
+  grid-template-columns: repeat(2, 0.5fr);
+  gap: 20px;
+  grid-column: span 2;
+  align-items: center;
+  margin: 10px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+}
+
+button {
+  margin-top: 20px;
+  width: max-content;
+  background-color: rgb(103, 168, 221);
+}
+.error-message {
+  color: darkred;
+  font-size: 12px;
+  margin: 0;
+}

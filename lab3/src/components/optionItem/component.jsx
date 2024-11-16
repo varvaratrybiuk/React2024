@@ -16,7 +16,7 @@ const OptionItem = (props) => {
           checked={field.value}
           onChange={(e) => {
             field.onChange(e);
-            onChange(e);
+            if (onChange) onChange(e);
           }}
         >
           {value}
