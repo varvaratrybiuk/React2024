@@ -112,7 +112,6 @@ const getHotelsByName = (placeNames, starsName) => {
   });
 };
 // Отримання країн куди можна поїхати
-
 export const getDestinationCountries = () => {
   return data.flatMap((item) => {
     const countryName = Object.keys(item.destinationCountry)[0];

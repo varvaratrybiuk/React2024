@@ -1,6 +1,6 @@
-import style from "./OptionGroupStyle.module.css";
 import { useFormContext } from "react-hook-form";
 import { useState } from "react";
+
 import OptionItem from "../optionItem/OptionItem.jsx";
 
 import {
@@ -8,10 +8,13 @@ import {
   checkAllFalse,
 } from "../../helpers/optionGroupHelpers.js";
 
+import style from "./OptionGroupStyle.module.css";
+
 export default function OptionGroup(props) {
   const { description, options, fieldname } = props;
   const { setValue, getValues } = useFormContext();
   const [expandedOptions, setExpandedOptions] = useState({});
+
   const addCheckedValues = (optionKey, isChecked) => {
     const allValues = getValues(fieldname) || {};
     const newValues = {};
@@ -56,6 +59,7 @@ export default function OptionGroup(props) {
       }));
     }
   };
+
   return (
     <div className={style["option-group"]}>
       <label className={style["description"]}>{description}</label>

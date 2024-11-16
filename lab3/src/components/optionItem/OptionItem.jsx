@@ -1,5 +1,6 @@
-import { Controller, useFormContext } from "react-hook-form";
 import { Checkbox } from "antd";
+
+import { Controller, useFormContext } from "react-hook-form";
 
 const OptionItem = (props) => {
   const { name, value, onChange, checked = false } = props;

@@ -1,6 +1,8 @@
-import { useFormContext, Controller } from "react-hook-form";
-import style from "./ComboBoxStyle.module.css";
 import { Select } from "antd";
+
+import { useFormContext, Controller } from "react-hook-form";
+
+import style from "./ComboBoxStyle.module.css";
 
 export default function ComboBox(props) {
   const { description, options, fieldname, onChange } = props;

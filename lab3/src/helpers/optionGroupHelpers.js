@@ -4,8 +4,8 @@ export const hasNestedOptions = (nestedData) =>
 export const checkAllFalse = (obj) => {
   return Object.values(obj).every((value) => {
     if (typeof value === "object" && value !== null) {
-      return checkAllFalse(value); // Рекурсивно перевіряємо вкладені об'єкти
+      return checkAllFalse(value); 
     }
-    return value === false; // Перевіряємо значення на false
+    return value === false; 
   });
 };
