@@ -1,0 +1,11 @@
+.container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #2c2b2b; 
+}

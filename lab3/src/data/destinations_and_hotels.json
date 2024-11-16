@@ -1,0 +1,184 @@
+[
+  {
+    "destinationCountry": {
+      "France": "Франція"
+    },
+    "departureCities": [
+      {
+        "Lviv": "Львів"
+      },
+      {
+        "Warsaw": "Варшава"
+      }
+    ],
+    "destinationCities": [
+      {
+        "Paris": "Париж",
+        "hotels": [
+          {
+            "Hotel Le Meurice": "Готель Ле Меріс",
+            "stars": "5*"
+          },
+          {
+            "The Ritz Paris": "Рітц Париж",
+            "stars": "5*"
+          },
+          {
+            "Hotel Lutetia": "Готель Лютеція",
+            "stars": "5*"
+          }
+        ]
+      },
+      {
+        "Nice": "Ніцца",
+        "hotels": [
+          {
+            "Hotel Negresco": "Готель Негреско",
+            "stars": "5*"
+          },
+          {
+            "Hyatt Centric": "Готель Хаятт Центрік",
+            "stars": "4*"
+          }
+        ]
+      },
+      {
+        "Marseille": "Марсель",
+        "hotels": [
+          {
+            "InterContinental Marseille": "ІнтерКонтиненталь Марсель",
+            "stars": "5*"
+          },
+          {
+            "Radisson Blu": "Радіссон Блу",
+            "stars": "4*"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "destinationCountry": {
+      "Spain": "Іспанія"
+    },
+    "departureCities": [
+      {
+        "Lviv": "Львів"
+      },
+      {
+        "Warsaw": "Варшава"
+      }
+    ],
+    "destinationCities": [
+      {
+        "Barcelona": "Барселона",
+        "hotels": [
+          {
+            "Hotel Arts Barcelona": "Готель Артс Барселона",
+            "stars": "5*"
+          },
+          {
+            "Majestic Hotel & Spa": "Маджестік Готель і СПА",
+            "stars": "5*"
+          }
+        ]
+      },
+      {
+        "Madrid": "Мадрид",
+        "hotels": [
+          {
+            "Hotel Ritz Madrid": "Рітц Мадрид",
+            "stars": "5*"
+          },
+          {
+            "Gran Meliá Palacio de los Duques": "Гран Меліа Палаціо де лос Дукес",
+            "stars": "5*"
+          }
+        ]
+      },
+      {
+        "Costa Brava": "Коста Брава",
+        "resorts": [
+          {
+            "Blanes": "Бланес",
+            "hotels": [
+              {
+                "Beverly Park Hotel & Spa": "Готель Беверлі Парк і СПА",
+                "stars": "4*"
+              },
+              {
+                "Hotel Horitzo & Spa": "Готель Горітзо і СПА",
+                "stars": "4*"
+              }
+            ]
+          },
+          {
+            "Calella": "Калелла",
+            "hotels": [
+              {
+                "Hotel Kaktus Playa": "Готель Кактус Плая",
+                "stars": "4*"
+              },
+              {
+                "Aqua Hotel Promenade": "Аква Готель Променад",
+                "stars": "4*"
+              }
+            ]
+          },
+          {
+            "Lloret de Mar": "Льорет де Мар",
+            "hotels": [
+              {
+                "Hotel Santa Marta": "Готель Санта Марта",
+                "stars": "5*"
+              },
+              {
+                "Gran Hotel Monterrey": "Гран Готель Монтеррей",
+                "stars": "5*"
+              }
+            ]
+          },
+          {
+            "Malgrat de Mar": "Мальграт де Мар",
+            "hotels": [
+              {
+                "Aqua Hotel Silhouette & Spa": "Аква Готель Сілует і СПА",
+                "stars": "4*"
+              },
+              {
+                "Hotel Europa Splash": "Готель Європа Сплеш",
+                "stars": "4*"
+              }
+            ]
+          },
+          {
+            "Pineda de Mar": "Пінеда де Мар",
+            "hotels": [
+              {
+                "Golden Taurus Aquapark Resort": "Голден Таурус Аквапарк Резорт",
+                "stars": "4*"
+              },
+              {
+                "Aqua Hotel Nostre Mar": "Аква Готель Ностре Мар",
+                "stars": "3*"
+              }
+            ]
+          },
+          {
+            "Santa Susanna": "Санта Сусанна",
+            "hotels": [
+              {
+                "Aqua Hotel Onabrava & Spa": "Аква Готель Онабрава і СПА",
+                "stars": "4*"
+              },
+              {
+                "Hotel Alhambra": "Готель Альгамбра",
+                "stars": "3*"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
