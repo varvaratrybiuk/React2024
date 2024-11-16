@@ -1,8 +1,8 @@
 import React from "react";
-import OptionGroup from "../optiongroup/component";
+import OptionGroup from "../optionGroup/OptionGroup";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import style from "./style.module.css";
+import style from "./FilterableListStyle.module.css";
 
 export default function FilterableList(props) {
   const { description, options, fieldname } = props;

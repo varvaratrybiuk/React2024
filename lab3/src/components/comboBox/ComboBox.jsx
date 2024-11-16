@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import style from "./style.module.css";
+import style from "./ComboBoxStyle.module.css";
 import { Select } from "antd";
 
 export default function ComboBox(props) {

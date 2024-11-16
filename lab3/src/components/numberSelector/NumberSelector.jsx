@@ -1,6 +1,6 @@
 import { InputNumber } from "antd";
 import { useFormContext, Controller } from "react-hook-form";
-import style from "./style.module.css";
+import style from "./NumberSelectorStyle.module.css";
 
 export default function NumberSelector(props) {
   const { description, fieldname } = props;

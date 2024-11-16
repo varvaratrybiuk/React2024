@@ -1,4 +1,4 @@
-import TourFinder from "./components/tourFinder/component";
+import TourFinder from "./components/tourFinder/TourFinder";
 
 function App() {
   return (

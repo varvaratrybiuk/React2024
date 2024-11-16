@@ -3,12 +3,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { tourFinderSchema } from "../../schemas/tourFinderSchemas";
 
-import OptionGroup from "../optiongroup/component";
-import ComboBox from "../comboBox/component";
-import DataPicker from "../dataPicker/component";
-import FilterableList from "../filterableList/component";
-import ComboBoxWithInputs from "../сomboBoxWithInputs/component";
-import NumberSelector from "../numberSelector/component";
+import OptionGroup from "../optionGroup/OptionGroup";
+import ComboBox from "../comboBox/ComboBox";
+import DataPicker from "../dataPicker/DataPicker";
+import FilterableList from "../filterableList/FilterableList";
+import ComboBoxWithInputs from "../сomboBoxWithInputs/ComboBoxWithInputs";
+import NumberSelector from "../numberSelector/NumberSelector";
+import OptionItem from "../optionItem/OptionItem";
 
 import {
   getDestinationCities,
@@ -25,8 +26,7 @@ import {
   сurrency,
 } from "../../data/constants";
 import { valueFiltering } from "../../helpers/filterFunctions";
-import style from "./style.module.css";
-import OptionItem from "../optionItem/component";
+import style from "./TourFinderstyle.module.css";
 
 export default function TourFinder() {
   const {

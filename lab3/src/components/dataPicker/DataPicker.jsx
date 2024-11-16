@@ -1,6 +1,6 @@
 import { DatePicker } from "antd";
 import { useFormContext, Controller } from "react-hook-form";
-import style from "./style.module.css";
+import style from "./DataPickerStyle.module.css";
 
 export default function DataPicker(props) {
   const { description, fieldname } = props;

@@ -1,6 +1,6 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import ComboBox from "../comboBox/component";
-import style from "./style.module.css";
+import ComboBox from "../comboBox/ComboBox";
+import style from "./ComboBoxWithInputsStyle.module.css";
 
 export default function ComboBoxWithInputs(props) {
   const { description, options, fieldname, inputPlaceholder } = props;
@@ -30,7 +30,7 @@ export default function ComboBoxWithInputs(props) {
         }}
       />
       {fields.map((field, index) => (
-        <div key={field.id}className= {style["custom-input-container"]}>
+        <div key={field.id} className={style["custom-input-container"]}>
           <input
             {...register(`${fieldname}.inputs.${index}.value`)}
             placeholder={inputPlaceholder}

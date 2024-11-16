@@ -1,7 +1,8 @@
-import style from "./style.module.css";
+import style from "./OptionGroupStyle.module.css";
 import { useFormContext } from "react-hook-form";
 import { useState } from "react";
-import OptionItem from "../optionItem/component.jsx";
+import OptionItem from "../optionItem/OptionItem.jsx";
+
 import {
   hasNestedOptions,
   checkAllFalse,
