@@ -1,18 +1,26 @@
 import "./App.css";
+import { lazy } from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
-import Catalog from "./pages/Catalog";
-import Home from "./pages/Home";
+
 import { dataLoader } from "./helpers/dataloader";
-import Error from "./components/error/error";
+
+const Home = lazy(() => import("./pages/Home"));
+const Catalog = lazy(() => import("./pages/Catalog"));
+const Error = lazy(() => import("./components/error/Error"));
+
+function HydrateFallback() {
+  return <p>Loading Page...</p>;
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    HydrateFallback: HydrateFallback,
     errorElement: <Error />,
     children: [
       {
-        path: "/catalog",
+        path: "catalog",
         element: <Catalog />,
         loader: dataLoader,
       },
@@ -26,7 +34,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </>
   );
 }

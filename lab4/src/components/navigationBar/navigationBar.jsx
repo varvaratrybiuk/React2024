@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-import style from "./navigationBarStyle.module.css";
+import style from "./NavigationBarStyle.module.css";
 
 export default function NavigationBar() {
   return (
-    <nav>
+    <nav className={style["nav-bar"]}>
       <NavLink
         to="/"
         className={({ isActive }) =>
