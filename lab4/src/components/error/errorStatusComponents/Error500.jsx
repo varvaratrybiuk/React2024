@@ -23,7 +23,7 @@ export default function Error500(props) {
           className={style["errorButton"]}
           title="Home"
           onClick={() => {
-            navigate("/home");
+            navigate("/");
           }}
         >
           Home

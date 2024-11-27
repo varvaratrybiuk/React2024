@@ -1,27 +1,30 @@
 import "./App.css";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 
 import { dataLoader } from "./helpers/dataloader";
 
-const Home = lazy(() => import("./pages/Home"));
-const Catalog = lazy(() => import("./pages/Catalog"));
-const Error = lazy(() => import("./components/error/Error"));
-
-function HydrateFallback() {
-  return <p>Loading Page...</p>;
-}
+const HomePage = lazy(() => import("./pages/Home"));
+const CatalogPage = lazy(() => import("./pages/Catalog"));
+const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-    HydrateFallback: HydrateFallback,
-    errorElement: <Error />,
+    element: (
+      <Suspense fallback={<p>Loading Page...</p>}>
+        <HomePage />
+      </Suspense>
+    ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "catalog",
-        element: <Catalog />,
+        element: (
+          <Suspense fallback={<p>Loading Page...</p>}>
+            <CatalogPage />
+          </Suspense>
+        ),
         loader: dataLoader,
       },
     ],

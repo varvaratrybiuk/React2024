@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import style from "../ErrorStyle.module.css";
 
 export default function UnexpectedError(props) {
-  const {error} = props
+  const { error } = props;
   const navigate = useNavigate();
   return (
     <div className={style["errorContainer"]}>
@@ -14,7 +14,7 @@ export default function UnexpectedError(props) {
           className={style["errorButton"]}
           title="Home"
           onClick={() => {
-            navigate("/home");
+            navigate("/");
           }}
         >
           Home
