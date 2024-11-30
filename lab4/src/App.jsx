@@ -4,25 +4,34 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 
 import { dataLoader } from "./helpers/dataloader";
 
-const HomePage = lazy(() => import("./pages/Home"));
-const CatalogPage = lazy(() => import("./pages/Catalog"));
-const ErrorPage = lazy(() => import("./pages/ErrorPage"));
+const Layout = lazy(() => import("./pages/Layout"));
+const Home = lazy(() => import("./pages/Home"));
+const Catalog = lazy(() => import("./pages/Catalog"));
+const Error = lazy(() => import("./pages/ErrorPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <Suspense fallback={<p>Loading Page...</p>}>
-        <HomePage />
+        <Layout />
       </Suspense>
     ),
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<p>Loading Page...</p>}>
+            <Home />
+          </Suspense>
+        ),
+      },
       {
         path: "catalog",
         element: (
           <Suspense fallback={<p>Loading Page...</p>}>
-            <CatalogPage />
+            <Catalog />
           </Suspense>
         ),
         loader: dataLoader,
