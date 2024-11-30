@@ -1,0 +1,38 @@
+.form-select-container {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-select-container label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-select-container select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-select-container select:focus {
+  border-color: #ff69b4; 
+  background-color: #fff;
+  outline: none;
+}
+
+.form-select-container select:hover {
+  background-color: #ffe4e8;
+}
+
+.form-select-container span {
+  color: #ff4c4c;
+  font-size: 12px;
+  margin-top: 5px;
+}
