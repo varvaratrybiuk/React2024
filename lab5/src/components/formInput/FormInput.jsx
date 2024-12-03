@@ -2,7 +2,8 @@ import { useFormContext } from "react-hook-form";
 import style from "./FormInputStyle.module.css";
 
 export default function FormInput(props) {
-  const { fieldKey, title, placeholderText, requiredText } = props;
+  const { fieldKey, title, placeholderText, requiredText, validationOptions } =
+    props;
   const {
     register,
     formState: { errors },
@@ -15,6 +16,7 @@ export default function FormInput(props) {
         id={fieldKey}
         {...register(fieldKey, {
           required: requiredText ? requiredText : false,
+          ...validationOptions,
         })}
         placeholder={placeholderText}
       />

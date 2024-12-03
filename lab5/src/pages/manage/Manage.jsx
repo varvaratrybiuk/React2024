@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { useLoaderData } from "react-router";
+import { useState, useContext } from "react";
 
 import ExpenseAmountEditor from "../../components/expenseAmountEditor/ExpenseAmountEditor";
 import ExpenseCard from "../../components/expenseCard/ExpenseCard";
@@ -7,23 +6,16 @@ import ExpenseCard from "../../components/expenseCard/ExpenseCard";
 import { FinanceTrackerContext } from "../../App";
 
 import style from "./ManageStyle.module.css";
+import { optionsColor, optionsCurrency } from "../../data/constants";
 
 export default function Manage() {
-  const actor = useContext(FinanceTrackerContext);
-  const initialCardsInform = useLoaderData();
-
+  const [state, send] = useContext(FinanceTrackerContext);
   const [selectedComponent, setSelectedComponent] = useState(null);
-  const [cardsInform, setCardsInform] = useState(initialCardsInform);
-
-  useEffect(() => {
-    actor.subscribe((snapshot) => {
-      setCardsInform(snapshot.context.cardsHolder);
-    });
-  }, [actor]);
 
   const handleSelectComponent = (component) => {
     setSelectedComponent(component);
   };
+
   return (
     <div className={style["manage-container"]}>
       <ul className={style["options-container"]}>
@@ -40,9 +32,20 @@ export default function Manage() {
           Додати карту
         </li>
       </ul>
-      {selectedComponent === "expenseCard" && <ExpenseCard actor={actor} />}
+
+      {selectedComponent === "expenseCard" && (
+        <ExpenseCard
+          send={send}
+          optionsColor={optionsColor}
+          optionsCurrency={optionsCurrency}
+        />
+      )}
+
       {selectedComponent === "expenseAmountEditor" && (
-        <ExpenseAmountEditor cardsInform={cardsInform} actor={actor} />
+        <ExpenseAmountEditor
+          cardsInform={state.context.cardsHolder}
+          send={send}
+        />
       )}
     </div>
   );

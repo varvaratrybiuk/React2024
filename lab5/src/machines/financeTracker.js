@@ -48,8 +48,12 @@ export const financeTrackerMachine = setup({
       }
     }),
   },
+  guards: {
+    isCardValid: ({ context }) => context.cardField.title !== "",
+    isExpenseValid: ({ event }) => event.amount > 0,
+  },
 }).createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QDMCWA7AhugxmAKgE6Y4DWYhAdADYD2mEGUAwpoRLAMQS3piUYAbrXI16EVu1gBtAAwBdRKAAOtWKgAuqXkpAAPRAA4AnLMrGAbACYALAHYLd0wFYAjLJsAaEAE9ENgGZnSjtZQytLYwCrALtQmwBfBO80LFwCYjIKMQYmSQ5OCkJaKmVqTA1kEoBbHIk2DjlFJBBVdS0dFoMECxtDczsbY2dnY2NXK0MAw28-BGizIbGo2VdhmMTkkFTsPCISciocBtgAGXFITgBlAFFTm+Z8AH1mAEEAJQARJt02zW10LpuhMguYJn13IZnHFZFZZoheq5KDYbK4LL1nJMURZnEkUhhdhkDtljlJzgxLq9Pp8Xh9vgpfmp-p1QN1xsZKK5BlE7IZUejjHZ4QgrLIzK4lsYbM5DLzQs5Nvi0ntModKLAwNQwDgtOgWA1OFSaTcABoABRuADlbj8Wn8OoCuogQcFxrZDJDoaE4b5EA4bJQrDKAiiArILCYAnjtgT0vsslQNVqdXkDZ87jd8DdaV9bSomQ6gc7nBYzIZZTZrLIAr1jIYLMK7CXOU2xTXeWtLNGdnHVdkGIw9fluLx+EIRPwB-k860CwCi-NjFZkbYokFVqF0cKAsNzEtYqirK5XKNu7GVcSqAPU+xCoRiqVypUapQpw0Z-b507F8ubKuAuuXLhg2vo9GKgZhNEOLHq4HoWGeypEgmr4QIOUA3HoyhgOgGojnwAjoMIogDhhWE4WAH5ziy+iIDuv7-oBm4gXMKLLrWdZipYQwnghhLxmq156qR2G4UUJSUGUFRVIQtQkZhIkUQydpUY6rK0UuK5DABzgbsBwq9BY5iQdMorHn+UZbD2F7IRAmpgLq+q3jw+HjqItlahoYDTkp+btF+akICepaUOWgxVjWQz1sKHqBsswwmAq9iorxvaXpQ7n2TeEB3g+ElPtJtQZZ53nNL5zKqTRgUlsuVirqYtjONEcTCpiy6jGiOJTKWGxJFs6C0LZ8AtFZSGHIyfnUd0AC0zGIFNrpxYtyx2FYKXWWqdC5EOJzjeVC7QoZdaDAB1auNMsrCqidghUsdgTLVUKwmto0kic5K2RAu2Ft+kI1csNZhBK3r6QByLBjWooehMrjPfx2RJtqDn5F9-mVRKsjBNEQzgyi4xeKBTaGVYrarBGEoojDlnni9V6oVlKOTUY13QlpEprFYFhRDMoE1v07FuLB4R0YqMaIXDtNocJ5EMxV3R-vptiUKWUwRE1OmU0qfF9lQRX08pE2y86gzXXdthxKECwRo2EwhHFThnQEZ29QkQA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QDMCWA7AhugxmAKgE6Y4DWYhAdADYD2mEGUAwpoRLAMQS3piUYAbrXI16EVu1gBtAAwBdRKAAOtWKgAuqXkpAAPRAA4AnLMrGAbACYALAHYLd0wFYAjLJsAaEAE9ENgGZnSjtZQytLYwCrALtQmwBfBO80LFwCYjIKMQYmSQ5OCkJaKmVqTA1kEoBbHIk2DjlFJBBVdS0dFoMECxtDczsbY2dnY2NXK0MAw28-BGizIbGo2VdhmMTkkFTsPCISciocBtgAGXFITgBlAFFTm+Z8AH1mAEEAJQARJt02zW10LpuhMguYJn13IZnHFZFZZoheq5KDYbK4LL1nJMURZnEkUhhdhkDtljlJzgxLq9Pp8Xh9vgpfmp-p1QN1xsZKK5BlE7IZUejjHZ4QgrLIzK4lsYbM5DLzQs5Nvi0ntModKLAwNQwDgtOgWA1OFSaTcABoABRuADlbj8Wn8OoCuogQcFxrZDJDoaE4b5EA4bJQrDKAiiArILCYAnjtgT0vsslQNVqdXkDZ87jd8DdaV9bSomQ6gc7nBYzIZZTZrLIAr1jIYLMK7CXOU2xTXeWtLNGdnHVdkGIw9fluLx+EIRPwB-k860CwCi-NjFZkbYokFVqF0cKAsNzEtYqirK5XKNu7GVcSqAPU+xCoRiqVypUapQpw0Z-b507F8ubKuAuuXLhg2vo9GKgZhNEOLHq4HoWGeypEgmr4QIOUA3HoyhgOgGojnwAjoMIogDhhWE4WAH5ziy+iIDuv7-oBm4gXMKLLrWdZipYQwnghhLxmq156qR2G4UUJSUGUFRVIQtQkZhIkUQydpUY6rK0UuK5DABzgbsBwq9BY5iQdMorHn+UZbD2F7IRAmpgLq+q3jw+HjqItlahoYDTkp+btF+akICepaUOWgxVjWQz1sKHqBsswwmAq9iorxvaXpQ7n2TeEB3g+ElPtJtQZZ53nNL5zKqTRgUlsuVirqYtjONEcTCpiy6jGiOJTKWGxJFs6C0LZ8AtFZSGHIyfnUd0AC0zGIDNlBimK7iTAKIauCl1lqnQuRDic43lQu0KGXWgwAdWrjTLKwqonYIVLHYEy1VCsIbaNJInOStkQPthbfpCNXLDWYQSt6+kAciwY1qKHoTOtlnnm9iZ2Smu3sD9-mVRKsjBNEQyQyi4xeKBTaGVYrarBGEoonDSp8X2V6oVl6OTUYt3QlpEprFYFhRDMoE1v07FuLB4R0YqMaIfx-aM0J8nkczFXdH++m2JQpZTBETU6TTEt02lRVM8pE2K86gy3Q9thxKECwRo2EwhHFTgXQEF29QkQA */
   id: "financeTracker",
   initial: "loadingCards",
   context: {
@@ -84,14 +88,19 @@ export const financeTrackerMachine = setup({
         SELECT_CARD: {
           target: "selectingCard",
         },
-
-        ADD_CARD: "addingCard",
+        ADD_CARD: {
+          target: "addingCard",
+          guard: "isCardValid",
+        },
       },
     },
 
     selectingCard: {
       on: {
-        ADD_EXPENSE: "addingExpense",
+        ADD_EXPENSE: {
+          target: "addingExpense",
+          guard: "isExpenseValid",
+        },
         DELETE_CARD: "deletingCard",
       },
     },

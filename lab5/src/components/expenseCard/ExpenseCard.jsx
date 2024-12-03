@@ -1,30 +1,20 @@
 import { useForm, FormProvider } from "react-hook-form";
+
 import FormSelect from "../formSelect/FormSelect";
-import style from "./ExpenseCardStyle.module.css";
 import FormInput from "../formInput/FormInput";
 
-const optionsCurrency = [{ USD: "USD" }, { EUR: "EUR" }, { UAH: "UAH" }];
-
-const optionsColor = [
-  { "#87CEEB": "Sky Blue" },
-  { "#FA8072": "Salmon" },
-  { "#3CB371": "Medium Sea Green" },
-  { "#C71585": "Medium Violet Red" },
-  { "#FF1493": "Deep Pink" },
-  { "#FFFACD": "Lemon Chiffon" },
-];
+import style from "./ExpenseCardStyle.module.css";
 
 export default function ExpenseCard(props) {
-  const { actor } = props;
+  const { send, optionsCurrency, optionsColor } = props;
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
 
   const onSubmit = (data) => {
-    actor.send({ type: "ADD_CARD", card: data });
+    send({ type: "ADD_CARD", card: data });
   };
   return (
     <div className={style["form-container"]}>

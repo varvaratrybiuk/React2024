@@ -1,14 +1,16 @@
-import Card from "../card/Card";
 import { useForm, FormProvider } from "react-hook-form";
-import style from "./ExpenseAmountEditorStyle.module.css";
+import { useState, useEffect } from "react";
+
 import HistoryItem from "../historyItem/HistoryItem";
 import FormInput from "../formInput/FormInput";
-import { useState } from "react";
 import FormTextarea from "../formTextarea/FormTextarea";
 import List from "../list/List";
+import Card from "../card/Card";
+
+import style from "./ExpenseAmountEditorStyle.module.css";
 
 export default function ExpenseAmountEditor(props) {
-  const { cardsInform, actor } = props;
+  const { cardsInform, send } = props;
 
   const [visibleInfo, setVisibleInfo] = useState({});
 
@@ -18,7 +20,9 @@ export default function ExpenseAmountEditor(props) {
     formState: { errors },
   } = useForm();
 
-  actor.send({ type: "SELECT_CARD" });
+  useEffect(() => {
+    send({ type: "SELECT_CARD" });
+  }, [send]);
 
   const toggleInfoVisibility = (cardId, key) => {
     setVisibleInfo((prevState) => ({
@@ -31,11 +35,11 @@ export default function ExpenseAmountEditor(props) {
   };
 
   const deleteCard = (cardId) => {
-    actor.send({ type: "DELETE_CARD", cardId });
+    send({ type: "DELETE_CARD", cardId });
   };
 
   const onSubmit = (data, cardId) => {
-    actor.send({
+    send({
       type: "ADD_EXPENSE",
       amount: data.amount,
       description: data.description,
@@ -46,7 +50,6 @@ export default function ExpenseAmountEditor(props) {
   return (
     <div>
       {cardsInform.map((cardInform) => (
-        // Вивід карток
         <div key={cardInform.id} className={style["expense-amount-editor"]}>
           <div onClick={() => toggleInfoVisibility(cardInform.id, "info")}>
             <Card
@@ -56,7 +59,7 @@ export default function ExpenseAmountEditor(props) {
               currency={cardInform.currency}
             />
           </div>
-          {/* Властивості карток  */}
+
           {visibleInfo[cardInform.id]?.info && (
             <div>
               <div className={style["buttons-contaner"]}>
@@ -88,6 +91,10 @@ export default function ExpenseAmountEditor(props) {
                       title="Сума витрат"
                       placeholderText="Введіть суму витрат"
                       requiredText="Сума витрат є обов'язковою"
+                      validationOptions={{
+                        valueAsNumber: true,
+                        min: { value: 0, message: "Сума має бути додатньою" },
+                      }}
                     />
                     <FormTextarea
                       fieldKey="description"
@@ -101,7 +108,7 @@ export default function ExpenseAmountEditor(props) {
                   </form>
                 </FormProvider>
               )}
-              {/* Вивід історії */}
+
               <div>
                 <List
                   items={cardInform.history}

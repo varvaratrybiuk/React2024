@@ -15,7 +15,7 @@
 .buttons-contaner {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 15px;
 }
 
 .expense-amount-editor {
@@ -25,25 +25,4 @@
   gap: 10px;
   max-width: 600px;
   margin: 0 auto;
-}
-
-
-
-.history-holder {
-  list-style-type: none;
-  max-height: 200px;
-  border-radius: 4px;
-  padding: 0;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-}
-
-.history-holder li {
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.expense-amount-editor li:hover {
-  background-color: #ff4c91a4;
 }

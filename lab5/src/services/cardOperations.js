@@ -36,7 +36,6 @@ export const addCard = (card) => {
 export const deleteCard = (cardId) => {
   try {
     const data = loadUserCards();
-    console.log("Тут")
     const updatedCards = data.filter((card) => card.id !== cardId);
     localStorage.setItem("cards", JSON.stringify(updatedCards));
   } catch (e) {

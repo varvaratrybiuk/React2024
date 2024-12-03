@@ -1,9 +1,10 @@
-import { useLoaderData } from "react-router";
+import { useContext } from "react";
 import Card from "../../components/card/Card";
 import style from "./HomeStyle.module.css";
+import { FinanceTrackerContext } from "../../App";
 
 export default function Home() {
-  const data = useLoaderData();
+  const data = useContext(FinanceTrackerContext)[0].context.cardsHolder;
 
   return (
     <div className={style["cards-container"]}>

@@ -6,46 +6,37 @@ import Home from "./pages/home/Home";
 import Manage from "./pages/manage/Manage";
 import Layout from "./pages/Layout";
 import LoadingPage from "./pages/loading/LoadingPage";
-import { cardsLoader } from "./helpers/cardsLoader";
 import { financeTrackerMachine } from "./machines/financeTracker";
-import { createActor } from "xstate";
+import { useMachine } from "@xstate/react";
 
-const financeTrackerActor = createActor(financeTrackerMachine);
-export const FinanceTrackerContext = createContext(financeTrackerActor);
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    hydrateFallbackElement: <LoadingPage />,
-
-    children: [
-      {
-        index: true,
-        loader: async () => {
-          return await cardsLoader(financeTrackerActor);
-        },
-        element: <Home />,
-      },
-      {
-        path: "manage",
-        loader: async () => {
-          return await cardsLoader(financeTrackerActor);
-        },
-        element: <Manage />,
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <Navigate to="/" replace />,
-  },
-]);
+export const FinanceTrackerContext = createContext([null, null]);
 
 function App() {
+  const [state, send] = useMachine(financeTrackerMachine);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "manage",
+          element: <Manage />,
+        },
+      ],
+    },
+    {
+      path: "*",
+      element: <Navigate to="/" replace />,
+    },
+  ]);
   return (
     <>
-      <FinanceTrackerContext.Provider value={financeTrackerActor}>
+      <FinanceTrackerContext.Provider value={[state, send]}>
         <RouterProvider router={router} />
       </FinanceTrackerContext.Provider>
     </>
