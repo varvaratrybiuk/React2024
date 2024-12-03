@@ -1,12 +1,14 @@
+import { useLoaderData } from "react-router";
 import Card from "../../components/card/Card";
-import data from "../../data/cards.json";
 import style from "./HomeStyle.module.css";
 
 export default function Home() {
+  const data = useLoaderData();
+
   return (
     <div className={style["cards-container"]}>
       <h2>Мої витрати</h2>
-      {data.cards.map((card) => (
+      {data.map((card) => (
         <Card
           key={card.id}
           cardColor={card.cardColor}

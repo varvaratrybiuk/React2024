@@ -1,0 +1,18 @@
+.list-holder {
+  list-style-type: none;
+  max-height: 200px;
+  border-radius: 4px;
+  padding: 0;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+
+.list-holder li {
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.list li:hover {
+  background-color: #ff4c91a4;
+}

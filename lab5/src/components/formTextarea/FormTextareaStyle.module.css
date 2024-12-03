@@ -1,0 +1,30 @@
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+}
+.description-container textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.description-container textarea:focus {
+  border-color: #ff69b4;
+  outline: none;
+}
+.description-container textarea:hover {
+  background-color: #ffe4e8;
+}
+.description-container span {
+  color: #ff4c4c;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.description-container label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}

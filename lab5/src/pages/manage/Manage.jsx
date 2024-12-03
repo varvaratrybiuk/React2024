@@ -1,11 +1,26 @@
+import { useState, useEffect, useContext } from "react";
+import { useLoaderData } from "react-router";
+
 import ExpenseAmountEditor from "../../components/expenseAmountEditor/ExpenseAmountEditor";
 import ExpenseCard from "../../components/expenseCard/ExpenseCard";
-import { useState } from "react";
+
+import { FinanceTrackerContext } from "../../App";
+
 import style from "./ManageStyle.module.css";
-import data from "../../data/cards.json";
 
 export default function Manage() {
+  const actor = useContext(FinanceTrackerContext);
+  const initialCardsInform = useLoaderData();
+
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const [cardsInform, setCardsInform] = useState(initialCardsInform);
+
+  useEffect(() => {
+    actor.subscribe((snapshot) => {
+      setCardsInform(snapshot.context.cardsHolder);
+    });
+  }, [actor]);
+
   const handleSelectComponent = (component) => {
     setSelectedComponent(component);
   };
@@ -25,9 +40,9 @@ export default function Manage() {
           Додати карту
         </li>
       </ul>
-      {selectedComponent === "expenseCard" && <ExpenseCard />}
+      {selectedComponent === "expenseCard" && <ExpenseCard actor={actor} />}
       {selectedComponent === "expenseAmountEditor" && (
-        <ExpenseAmountEditor cardsInform={data.cards} />
+        <ExpenseAmountEditor cardsInform={cardsInform} actor={actor} />
       )}
     </div>
   );
