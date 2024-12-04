@@ -10,7 +10,7 @@ import Card from "../card/Card";
 import style from "./ExpenseAmountEditorStyle.module.css";
 
 export default function ExpenseAmountEditor(props) {
-  const { cardsInform, send } = props;
+  const { cardsInform, actor } = props;
 
   const [visibleInfo, setVisibleInfo] = useState({});
 
@@ -21,8 +21,8 @@ export default function ExpenseAmountEditor(props) {
   } = useForm();
 
   useEffect(() => {
-    send({ type: "SELECT_CARD" });
-  }, [send]);
+    actor.send({ type: "SELECT_CARD" });
+  }, [actor]);
 
   const toggleInfoVisibility = (cardId, key) => {
     setVisibleInfo((prevState) => ({
@@ -35,11 +35,11 @@ export default function ExpenseAmountEditor(props) {
   };
 
   const deleteCard = (cardId) => {
-    send({ type: "DELETE_CARD", cardId });
+    actor.send({ type: "DELETE_CARD", cardId });
   };
 
   const onSubmit = (data, cardId) => {
-    send({
+    actor.send({
       type: "ADD_EXPENSE",
       amount: data.amount,
       description: data.description,

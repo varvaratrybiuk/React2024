@@ -1,3 +1,4 @@
+import { FinanceTrackerMachineContext } from "../../context/financeTrackerContext";
 import style from "./CardStyle.module.css";
 
 export default function Card(props) {

@@ -2,7 +2,8 @@ import style from "./FormTextareaStyle.module.css";
 import { useFormContext } from "react-hook-form";
 
 export default function FormTextarea(props) {
-  const { fieldKey, title, placeholderText, requiredText } = props;
+  const { fieldKey, title, placeholderText, requiredText, validationOptions } =
+    props;
   const {
     register,
     formState: { errors },
@@ -15,10 +16,11 @@ export default function FormTextarea(props) {
         id={fieldKey}
         placeholder={placeholderText}
         {...register(fieldKey, {
-          required: { requiredText },
+          required: requiredText ? requiredText : false,
+          ...validationOptions,
         })}
       />
-      {errors.description && <span>{errors.description.message}</span>}
+      {errors[fieldKey] && <span>{errors[fieldKey].message}</span>}
     </div>
   );
 }

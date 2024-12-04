@@ -1,0 +1,29 @@
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ff69b4;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+.errorButton {
+  padding: 12px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #ff69b4;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.errorButton {
+  background-color: #ff4c91;
+}
+.errorButton {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}

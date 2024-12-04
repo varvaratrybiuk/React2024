@@ -1,23 +1,23 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
-import { createContext } from "react";
 
 import Home from "./pages/home/Home";
 import Manage from "./pages/manage/Manage";
 import Layout from "./pages/Layout";
-import LoadingPage from "./pages/loading/LoadingPage";
-import { financeTrackerMachine } from "./machines/financeTracker";
-import { useMachine } from "@xstate/react";
 
-export const FinanceTrackerContext = createContext([null, null]);
+import { FinanceTrackerProvider } from "./context/financeTrackerContext.jsx";
+import ErrorPage from "./pages/error/ErrorPage.jsx";
 
 function App() {
-  const [state, send] = useMachine(financeTrackerMachine);
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
+      errorElement: <ErrorPage />,
       children: [
         {
           index: true,
@@ -34,12 +34,11 @@ function App() {
       element: <Navigate to="/" replace />,
     },
   ]);
+
   return (
-    <>
-      <FinanceTrackerContext.Provider value={[state, send]}>
-        <RouterProvider router={router} />
-      </FinanceTrackerContext.Provider>
-    </>
+    <FinanceTrackerProvider>
+      <RouterProvider router={router} />
+    </FinanceTrackerProvider>
   );
 }
 

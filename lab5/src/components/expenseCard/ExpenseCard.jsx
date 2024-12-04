@@ -6,7 +6,7 @@ import FormInput from "../formInput/FormInput";
 import style from "./ExpenseCardStyle.module.css";
 
 export default function ExpenseCard(props) {
-  const { send, optionsCurrency, optionsColor } = props;
+  const { actor, optionsCurrency, optionsColor } = props;
   const {
     register,
     handleSubmit,
@@ -14,7 +14,7 @@ export default function ExpenseCard(props) {
   } = useForm();
 
   const onSubmit = (data) => {
-    send({ type: "ADD_CARD", card: data });
+    actor.send({ type: "ADD_CARD", card: data });
   };
   return (
     <div className={style["form-container"]}>
