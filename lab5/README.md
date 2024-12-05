@@ -19,7 +19,7 @@ making it highly flexible for managing both simple and complex state logic.
 
 ![Finance Tracker Machine Schema](./assets/financeTrackerMachineSchema.png)
 
-My [macine](./src/machines/financeTracker.js) has 4 states: loadingCards, cardsLoaded, selectingCard, and retry. Each state has actions that transition it to the next state, and some of them have associated actions. For example, cardsLoaded has the actions ADD_CARD and SELECT_CARD.
+My [macine](./src/machines/financeTracker.js) has 7 states: loadingCards, cardsLoaded, selectingCard, addingExpense, addingCard, delitingCard and retry. Each state has actions that transition it to the next state, and some of them have associated actions. For example, cardsLoaded has the actions ADD_CARD and SELECT_CARD.
 
 In the context of React states, this function performs a context, some of which I use in my application, like [cardsHolder](./src/pages/home/Home.jsx#L9-L11) and [errorMessage](./src/components/loadingOrErrorWrapper/LoadingOrErrorWrapper.jsx#L10-L12), and another for transporting to my [invoked actors](./src/machines/financeTracker.js#L10-L56), because fromPromise takes input. I have also added [guards](./src/machines/financeTracker.js#L57-L60) to validate external data.
 

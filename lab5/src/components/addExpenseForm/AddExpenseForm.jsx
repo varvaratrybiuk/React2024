@@ -15,6 +15,7 @@ export default function AddExpenseForm(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  
   const onSubmit = (data, cardId) => {
     actor.send({
       type: "ADD_EXPENSE",
