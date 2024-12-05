@@ -1,24 +1,20 @@
-import { useForm, FormProvider } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy } from "react";
 
-import HistoryItem from "../historyItem/HistoryItem";
-import FormInput from "../formInput/FormInput";
-import FormTextarea from "../formTextarea/FormTextarea";
-import List from "../list/List";
+const HistoryItem = lazy(() => import("../historyItem/HistoryItem"));
+const List = lazy(() => import("../list/List"));
+const AddExpenseForm = lazy(() => import("../addExpenseForm/AddExpenseForm"));
 import Card from "../card/Card";
 
+import { FinanceTrackerMachineContext } from "../../context/financeTrackerContext";
+
 import style from "./ExpenseAmountEditorStyle.module.css";
+import buttonStyles from "../../styles/buttonsStyle.module.css";
 
 export default function ExpenseAmountEditor(props) {
-  const { cardsInform, actor } = props;
+  const { cardsInform } = props;
+  const actor = FinanceTrackerMachineContext.useActorRef();
 
   const [visibleInfo, setVisibleInfo] = useState({});
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   useEffect(() => {
     actor.send({ type: "SELECT_CARD" });
@@ -38,15 +34,6 @@ export default function ExpenseAmountEditor(props) {
     actor.send({ type: "DELETE_CARD", cardId });
   };
 
-  const onSubmit = (data, cardId) => {
-    actor.send({
-      type: "ADD_EXPENSE",
-      amount: data.amount,
-      description: data.description,
-      cardId,
-    });
-  };
-
   return (
     <div>
       {cardsInform.map((cardInform) => (
@@ -64,13 +51,13 @@ export default function ExpenseAmountEditor(props) {
             <div>
               <div className={style["buttons-contaner"]}>
                 <button
-                  className={style["button-submit"]}
+                  className={buttonStyles["pink-button"]}
                   onClick={() => deleteCard(cardInform.id)}
                 >
                   Видалити картку
                 </button>
                 <button
-                  className={style["button-submit"]}
+                  className={buttonStyles["pink-button"]}
                   onClick={() => toggleInfoVisibility(cardInform.id, "form")}
                 >
                   {visibleInfo[cardInform.id]?.form
@@ -80,33 +67,7 @@ export default function ExpenseAmountEditor(props) {
               </div>
 
               {visibleInfo[cardInform.id]?.form && (
-                <FormProvider {...{ register, formState: { errors } }}>
-                  <form
-                    onSubmit={handleSubmit((data) =>
-                      onSubmit(data, cardInform.id)
-                    )}
-                  >
-                    <FormInput
-                      fieldKey="amount"
-                      title="Сума витрат"
-                      placeholderText="Введіть суму витрат"
-                      requiredText="Сума витрат є обов'язковою"
-                      validationOptions={{
-                        valueAsNumber: true,
-                        min: { value: 0, message: "Сума має бути додатньою" },
-                      }}
-                    />
-                    <FormTextarea
-                      fieldKey="description"
-                      title="Опис витрати"
-                      placeholderText="Додайте опис витрати"
-                      requiredText="Опис є обов'язковим"
-                    />
-                    <button className={style["button-submit"]} type="submit">
-                      Додати у витрати
-                    </button>
-                  </form>
-                </FormProvider>
+                <AddExpenseForm cardId={cardInform.id} />
               )}
 
               <div>

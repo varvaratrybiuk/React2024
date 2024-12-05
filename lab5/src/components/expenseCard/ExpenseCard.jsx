@@ -3,10 +3,14 @@ import { useForm, FormProvider } from "react-hook-form";
 import FormSelect from "../formSelect/FormSelect";
 import FormInput from "../formInput/FormInput";
 
+import { FinanceTrackerMachineContext } from "../../context/financeTrackerContext";
+
 import style from "./ExpenseCardStyle.module.css";
+import buttonStyles from "../../styles/buttonsStyle.module.css";
 
 export default function ExpenseCard(props) {
-  const { actor, optionsCurrency, optionsColor } = props;
+  const { optionsCurrency, optionsColor } = props;
+  const actor = FinanceTrackerMachineContext.useActorRef();
   const {
     register,
     handleSubmit,
@@ -37,7 +41,7 @@ export default function ExpenseCard(props) {
             fieldKey="cardColor"
             options={optionsColor}
           />
-          <button className={style["button-submit"]} type="submit">
+          <button className={buttonStyles["pink-button"]} type="submit">
             Додати карту
           </button>
         </form>

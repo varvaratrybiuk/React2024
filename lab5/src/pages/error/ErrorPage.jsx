@@ -1,11 +1,13 @@
 import { useRouteError } from "react-router-dom";
+
 import UnexpectedError from "../../components/error/UnexpectedError";
 
 export default function ErrorPage() {
   const error = useRouteError();
+  let errorMessage = "";
 
   if (error instanceof Error) {
-    errorMessage = error.message;
+    errorMessage = error?.message;
   } else if (error?.status) {
     errorMessage = `Помилка ${error.status}: ${
       error.statusText || "Невідома помилка"
@@ -13,7 +15,7 @@ export default function ErrorPage() {
   }
   return (
     <div>
-      <UnexpectedError error={errorMessage} />
+      <UnexpectedError errorText={errorMessage} />
     </div>
   );
 }

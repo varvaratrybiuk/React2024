@@ -3,14 +3,17 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import "./App.css";
+import { Suspense, lazy } from "react";
 
-import Home from "./pages/home/Home";
-import Manage from "./pages/manage/Manage";
-import Layout from "./pages/Layout";
+const Home = lazy(() => import("./pages/home/Home"));
+const Manage = lazy(() => import("./pages/manage/Manage"));
+const Layout = lazy(() => import("./pages/Layout"));
+const ErrorPage = lazy(() => import("./pages/error/ErrorPage.jsx"));
+import LoadingPage from "./pages/loadingPage/LoadingPage.jsx";
 
 import { FinanceTrackerProvider } from "./context/financeTrackerContext.jsx";
-import ErrorPage from "./pages/error/ErrorPage.jsx";
+
+import "./App.css";
 
 function App() {
   const router = createBrowserRouter([
@@ -36,9 +39,11 @@ function App() {
   ]);
 
   return (
-    <FinanceTrackerProvider>
-      <RouterProvider router={router} />
-    </FinanceTrackerProvider>
+    <Suspense fallback={<LoadingPage />}>
+      <FinanceTrackerProvider>
+        <RouterProvider router={router} />
+      </FinanceTrackerProvider>
+    </Suspense>
   );
 }
 

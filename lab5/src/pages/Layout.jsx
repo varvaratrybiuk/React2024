@@ -1,11 +1,13 @@
-import NavBar from "../components/navBar/NavBar";
 import { Outlet } from "react-router-dom";
-import { pathOptions } from "../data/constants";
+
+import NavBar from "../components/navBar/NavBar";
+
+import { PATH_OPTIONS } from "../constants/constants";
 
 export default function Layout() {
   return (
     <>
-      <NavBar options={pathOptions} />
+      <NavBar options={PATH_OPTIONS} />
       <Outlet />
     </>
   );

@@ -1,5 +1,6 @@
-import { financeTrackerMachine } from "../machines/financeTracker";
 import { createActorContext } from "@xstate/react";
+
+import { financeTrackerMachine } from "../machines/financeTracker";
 
 export const FinanceTrackerMachineContext = createActorContext(
   financeTrackerMachine

@@ -1,9 +1,9 @@
+import Card from "../../components/card/Card.jsx";
+import LoadingOrErrorWrapperStyle from "../../components/loadingOrErrorWrapper/LoadingOrErrorWrapper.jsx";
+
 import { FinanceTrackerMachineContext } from "../../context/financeTrackerContext.jsx";
 
-import Card from "../../components/card/Card";
-
 import style from "./HomeStyle.module.css";
-import Loading from "../../components/loading/Loading.jsx";
 
 export default function Home() {
   const data = FinanceTrackerMachineContext.useSelector(
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className={style["cards-container"]}>
       <h2>Мої витрати</h2>
-      <Loading>
+      <LoadingOrErrorWrapperStyle>
         {data.map((card) => (
           <Card
             key={card.id}
@@ -24,7 +24,7 @@ export default function Home() {
             history={card.history}
           />
         ))}
-      </Loading>
+      </LoadingOrErrorWrapperStyle>
     </div>
   );
 }

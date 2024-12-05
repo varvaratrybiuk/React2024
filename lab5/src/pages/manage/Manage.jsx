@@ -1,55 +1,58 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 
-import ExpenseAmountEditor from "../../components/expenseAmountEditor/ExpenseAmountEditor";
-import ExpenseCard from "../../components/expenseCard/ExpenseCard";
+const ExpenseAmountEditor = lazy(() =>
+  import("../../components/expenseAmountEditor/ExpenseAmountEditor")
+);
+const ExpenseCard = lazy(() =>
+  import("../../components/expenseCard/ExpenseCard")
+);
+import LoadingOrErrorWrapperStyle from "../../components/loadingOrErrorWrapper/LoadingOrErrorWrapper.jsx";
 
 import { FinanceTrackerMachineContext } from "../../context/financeTrackerContext.jsx";
+import { COLOR_OPTIONS, CURRENCY_OPTIONS } from "../../constants/constants.js";
 
 import style from "./ManageStyle.module.css";
-import { optionsColor, optionsCurrency } from "../../data/constants";
-import Loading from "../../components/loading/Loading.jsx";
+import buttonStyles from "../../styles/buttonsStyle.module.css";
 
 export default function Manage() {
   const cards = FinanceTrackerMachineContext.useSelector(
     (state) => state.context.cardsHolder
   );
-  const actorRef = FinanceTrackerMachineContext.useActorRef();
+
   const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handleSelectComponent = (component) => {
     setSelectedComponent(component);
   };
 
-
   return (
     <div className={style["manage-container"]}>
       <ul className={style["options-container"]}>
         <li
-          className={style["options"]}
+          className={buttonStyles["pink-button"]}
           onClick={() => handleSelectComponent("expenseAmountEditor")}
         >
           Додати кошти у витрати
         </li>
         <li
-          className={style["options"]}
+          className={buttonStyles["pink-button"]}
           onClick={() => handleSelectComponent("expenseCard")}
         >
           Додати карту
         </li>
       </ul>
-      <Loading>
+      <LoadingOrErrorWrapperStyle>
         {selectedComponent === "expenseCard" && (
           <ExpenseCard
-            actor={actorRef}
-            optionsColor={optionsColor}
-            optionsCurrency={optionsCurrency}
+            optionsColor={COLOR_OPTIONS}
+            optionsCurrency={CURRENCY_OPTIONS}
           />
         )}
 
         {selectedComponent === "expenseAmountEditor" && (
-          <ExpenseAmountEditor cardsInform={cards} actor={actorRef} />
+          <ExpenseAmountEditor cardsInform={cards} />
         )}
-      </Loading>
+      </LoadingOrErrorWrapperStyle>
     </div>
   );
 }
