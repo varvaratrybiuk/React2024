@@ -1,0 +1,15 @@
+
+.buttons-contaner {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.expense-amount-editor {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}

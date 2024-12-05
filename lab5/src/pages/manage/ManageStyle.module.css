@@ -1,0 +1,16 @@
+.manage-container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 20px;
+  justify-self: center;
+  align-items: center;
+  border-radius: 8px;
+}
+.options-container {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}

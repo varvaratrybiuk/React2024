@@ -1,0 +1,14 @@
+.container {
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ff69b4;
+}

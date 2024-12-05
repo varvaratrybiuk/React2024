@@ -1,0 +1,39 @@
+.history-item {
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 5px;
+  display: flex;
+  border: 1px solid deeppink;
+  flex-direction: column;
+}
+.history-item:hover {
+  border: none;
+}
+.history-item span {
+  font-weight: bold;
+}
+
+.history-item p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.history-item .date {
+  font-size: 14px;
+  color: #888;
+}
+
+.history-item .description {
+  font-size: 16px;
+  color: #555;
+}
+
+.history-item .amount {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff1493;
+}
+
+.history-item .amount span {
+  font-weight: normal;
+}

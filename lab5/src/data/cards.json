@@ -1,0 +1,25 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "cardColor": "#FA8072",
+      "title": "Особисті витрати",
+      "amount": 70,
+      "currency": "UAH",
+      "history": [
+        {
+          "id": 101,
+          "date": "2024-11-29",
+          "description": "Купівля кави",
+          "amount": 50
+        },
+        {
+          "id": 102,
+          "date": "2024-11-28",
+          "description": "Проїзд",
+          "amount": 30
+        }
+      ]
+    }
+  ]
+}
