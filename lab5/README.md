@@ -53,7 +53,7 @@ Best Practices I used for my project
   - Card;
   - List;
   - UnexpectedError;
-  - loadingOrErrorWrapper.
+  - LoadingOrErrorWrapper.
 
 - Using Context to avoid prop drilling.
 
